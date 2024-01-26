@@ -609,8 +609,67 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 - De momento la aplicacion tendria una vista tal que asi:
 
  [![N|Solid](https://reactrouter.com/_docs/tutorial/01.webp)
+
+
+
+## Configurar el Not Found Errors
+
+Ahora vamos a configurar los errores de nuestra pagina. Estamos hablando de los tipicos errores de 404.
+
+
+Si haceis click en alguno de los "usuarios" de nuestro sidebar veremos el not found error.
+
+- 👉 Por ello crearemos el componente error-page.jsx en src/error.page.jsx
+
+```jsx
+import { useRouteError } from "react-router-dom";
+
+export default function ErrorPage() {
+  const error = useRouteError();
+  console.error(error);
+
+  return (
+    <div id="error-page">
+      <h1>Oops!</h1>
+      <p>Sorry, an unexpected error has occurred.</p>
+      <p>
+        <i>{error.statusText || error.message}</i>
+      </p>
+    </div>
+  );
+}
+```
+
+Ahora pondremos el <ErrorPage> como 'errorElement' en el roor router, por lo tanto entramos en src/main.jsx
+
+```jsx
+/* previous imports */
+import ErrorPage from "./error-page";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+```
+
+
+- Ahora veriamos la pagina tal que asi al clickar en un usuario:
+
+ [![N|Solid](https://reactrouter.com/_docs/tutorial/03.webp)
+
  
- ----
- Aun no acabado
- 
- ----
+
+
+
+
+
+
