@@ -844,7 +844,7 @@ Cuando hacemos click en los enlaces de la barra lateral el navegador realiza una
 Esto lo haremos con 'Link'
 
 
-👉 Cambia en la barra lateral <a href> a <Link to> en root.jsx
+👉 Cambia en la barra lateral 'a href' a 'Link to' en root.jsx
 
 ```jsx
 import { Outlet, Link } from "react-router-dom";
