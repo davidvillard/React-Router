@@ -818,9 +818,9 @@ const router = createBrowserRouter([
 ]);
 ```
 
-Ahora veriamos en la ruta root una pagina en blanco a la derecha. Por ello necesitamos decirle a la ruta root donde queremos que se represente sus rutas secundarias, y lo haremos con <Outlet>
+Ahora veriamos en la ruta root una pagina en blanco a la derecha. Por ello necesitamos decirle a la ruta root donde queremos que se represente sus rutas secundarias, y lo haremos con 'Outlet'
 
-Busca el '<div id='detail'>' y pon un outlet dentro, en root.jsx
+Busca el 'div id='detail'' y pon un outlet dentro, en root.jsx
 
 ```jsx
 import { Outlet } from "react-router-dom";
@@ -841,7 +841,7 @@ export default function Root() {
 
 Cuando hacemos click en los enlaces de la barra lateral el navegador realiza una solicitud completa del documento en lugar de usar React Router. El enrutamiento de lado cliente permite que se actualice sin solicitar otro documento del servidor.
 
-Esto lo haremos con <Link>
+Esto lo haremos con 'Link'
 
 
 👉 Cambia en la barra lateral <a href> a <Link to> en root.jsx
@@ -982,7 +982,7 @@ En lugar de enviar un POST al servidor Vite para crear un contacto, usaremos el 
 
 ## Crear Contactos
 
-Crearemos contactos exportando una accion en root y conectandola a la configuracion de la ruta y cambiando <form> por <Form> en root.jsx
+Crearemos contactos exportando una accion en root y conectandola a la configuracion de la ruta y cambiando 'form' por 'Form' en root.jsx
 
 ```jsx
 import {
