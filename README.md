@@ -664,7 +664,402 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
 - Ahora veriamos la pagina tal que asi al clickar en un usuario:
 
- [![N|Solid](https://reactrouter.com/_docs/tutorial/03.webp)
+ ![N|Solid](https://reactrouter.com/_docs/tutorial/03.webp)
+ 
+
+## Configurar el route de contactos para que no aparezca el 404 error
+
+Ahora vamos a hacer los contactos:
+
+👉 Crea el modulo de ruta de contacto llamado contact.jsx en src/routes
+
+Ahora añade el componenete contactos en el archivo creado:
+
+```jsx
+import { Form } from "react-router-dom";
+
+export default function Contact() {
+  const contact = {
+    first: "Your",
+    last: "Name",
+    avatar: "https://placekitten.com/g/200/200",
+    twitter: "your_handle",
+    notes: "Some notes",
+    favorite: true,
+  };
+
+  return (
+    <div id="contact">
+      <div>
+        <img
+          key={contact.avatar}
+          src={contact.avatar || null}
+        />
+      </div>
+
+      <div>
+        <h1>
+          {contact.first || contact.last ? (
+            <>
+              {contact.first} {contact.last}
+            </>
+          ) : (
+            <i>No Name</i>
+          )}{" "}
+          <Favorite contact={contact} />
+        </h1>
+
+        {contact.twitter && (
+          <p>
+            <a
+              target="_blank"
+              href={`https://twitter.com/${contact.twitter}`}
+            >
+              {contact.twitter}
+            </a>
+          </p>
+        )}
+
+        {contact.notes && <p>{contact.notes}</p>}
+
+        <div>
+          <Form action="edit">
+            <button type="submit">Edit</button>
+          </Form>
+          <Form
+            method="post"
+            action="destroy"
+            onSubmit={(event) => {
+              if (
+                !confirm(
+                  "Please confirm you want to delete this record."
+                )
+              ) {
+                event.preventDefault();
+              }
+            }}
+          >
+            <button type="submit">Delete</button>
+          </Form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Favorite({ contact }) {
+  // yes, this is a `let` for later
+  let favorite = contact.favorite;
+  return (
+    <Form method="post">
+      <button
+        name="favorite"
+        value={favorite ? "false" : "true"}
+        aria-label={
+          favorite
+            ? "Remove from favorites"
+            : "Add to favorites"
+        }
+      >
+        {favorite ? "★" : "☆"}
+      </button>
+    </Form>
+  );
+}
+```
+
+Una vez añadido el componenete, lo importamos y creamos una nueva ruta en main.jsx:
+
+```jsx
+/* existing imports */
+import Contact from "./routes/contact";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "contacts/:contactId",
+    element: <Contact />,
+  },
+]);
+
+/* existing code */
+```
+
+
+- Ahora veriamos la pagina de esta manera:
+
+ ![N|Solid](https://reactrouter.com/_docs/tutorial/04.webp)
+ 
+ 
+ ## Añadir el componente contactos dentro del diseño Root:
+ 
+ Para ellos hacemos que la ruta contacto sea hija de la ruta root.
+ 
+ 👉 En main.jsx:
+ 
+ ```jsx
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />,
+      },
+    ],
+  },
+]);
+```
+
+Ahora veriamos en la ruta root una pagina en blanco a la derecha. Por ello necesitamos decirle a la ruta root donde queremos que se represente sus rutas secundarias, y lo haremos con <Outlet>
+
+Busca el '<div id='detail'>' y pon un outlet dentro, en root.jsx
+
+```jsx
+import { Outlet } from "react-router-dom";
+
+export default function Root() {
+  return (
+    <>
+      {/* all the other elements */}
+      <div id="detail">
+        <Outlet />
+      </div>
+    </>
+  );
+}
+```
+
+## Enrutamiento de lado cliente
+
+Cuando hacemos click en los enlaces de la barra lateral el navegador realiza una solicitud completa del documento en lugar de usar React Router. El enrutamiento de lado cliente permite que se actualice sin solicitar otro documento del servidor.
+
+Esto lo haremos con <Link>
+
+
+👉 Cambia en la barra lateral <a href> a <Link to> en root.jsx
+
+```jsx
+import { Outlet, Link } from "react-router-dom";
+
+export default function Root() {
+  return (
+    <>
+      <div id="sidebar">
+        {/* other elements */}
+
+        <nav>
+          <ul>
+            <li>
+              <Link to={`contacts/1`}>Your Name</Link>
+            </li>
+            <li>
+              <Link to={`contacts/2`}>Your Friend</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* other elements */}
+      </div>
+    </>
+  );
+}
+```
+
+## Cargando datos
+
+ A menudo necesitas cargar datos dependiendo de la URL a la que el usuario acceda. Por ello utilizaremos dos herramientas para facilitar este proceso: loader y useLoaderData.
+ 
+ Estas herramientas ayudan a desacoplar la carga de datos de tus componentes de ruta, facilitando la gestión de datos dinámicos en tu aplicación.
+ 
+ Exporta el loader en root.jsx
+ 
+ ```jsx
+ import { Outlet, Link } from "react-router-dom";
+import { getContacts } from "../contacts";
+
+export async function loader() {
+  const contacts = await getContacts();
+  return { contacts };
+}
+ ```
+ 
+ Confifuralo en la ruta en main.jsx
+ 
+ ```jsx
+ /* other imports */
+import Root, { loader as rootLoader } from "./routes/root";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />,
+      },
+    ],
+  },
+]);
+ ```
+ 
+ Accede y renderiza los datos en root.jsx
+ 
+ ```jsx
+ import {
+  Outlet,
+  Link,
+  useLoaderData,
+} from "react-router-dom";
+import { getContacts } from "../contacts";
+
+/* other code */
+
+export default function Root() {
+  const { contacts } = useLoaderData();
+  return (
+    <>
+      <div id="sidebar">
+        <h1>React Router Contacts</h1>
+        {/* other code */}
+
+        <nav>
+          {contacts.length ? (
+            <ul>
+              {contacts.map((contact) => (
+                <li key={contact.id}>
+                  <Link to={`contacts/${contact.id}`}>
+                    {contact.first || contact.last ? (
+                      <>
+                        {contact.first} {contact.last}
+                      </>
+                    ) : (
+                      <i>No Name</i>
+                    )}{" "}
+                    {contact.favorite && <span>★</span>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>
+              <i>No contacts</i>
+            </p>
+          )}
+        </nav>
+
+        {/* other code */}
+      </div>
+    </>
+  );
+}
+ ```
+ 
+ Ahora React Router tendra automaticamente los datos sincronizadps con la interfaz de usuario. Por ahora obtendriamos esto:
+ 
+  ![N|Solid](https://reactrouter.com/_docs/tutorial/06.webp)
+  
+  
+## Escritura de Datos y fomrularios HTML
+
+React Router simplifica la navegación al emular el comportamiento de los formularios HTML, permitiendo el renderizado del lado del cliente con la simplicidad de los modelos web tradicionales. Los formularios HTML provocan la navegación del navegador, similar a los enlaces, pero con la capacidad adicional de modificar los métodos y cuerpos de las solicitudes. React Router imita este comportamiento, manejando los datos localmente en lugar de enviarlos al servidor. Probar esto con un botón "Nuevo" puede causar problemas si el servidor no está configurado para solicitudes POST.
+
+  ![N|Solid](https://reactrouter.com/_docs/tutorial/07.webp)
+
+En lugar de enviar un POST al servidor Vite para crear un contacto, usaremos el enrutamiento del lado cliente.
+
+
+
+## Crear Contactos
+
+Crearemos contactos exportando una accion en root y conectandola a la configuracion de la ruta y cambiando <form> por <Form> en root.jsx
+
+```jsx
+import {
+  Outlet,
+  Link,
+  useLoaderData,
+  Form,
+} from "react-router-dom";
+import { getContacts, createContact } from "../contacts";
+
+export async function action() {
+  const contact = await createContact();
+  return { contact };
+}
+
+/* other code */
+
+export default function Root() {
+  const { contacts } = useLoaderData();
+  return (
+    <>
+      <div id="sidebar">
+        <h1>React Router Contacts</h1>
+        <div>
+          {/* other code */}
+          <Form method="post">
+            <button type="submit">New</button>
+          </Form>
+        </div>
+
+        {/* other code */}
+      </div>
+    </>
+  );
+}
+```
+
+
+Importa y establece la accion en la ruta en main.jsx
+
+```jsx
+/* other imports */
+
+import Root, {
+  loader as rootLoader,
+  action as rootAction,
+} from "./routes/root";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    action: rootAction,
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />,
+      },
+    ],
+  },
+]);
+```
+
+- Ahora si hacemos click en añadir nuevo contacto se abrira un nuevo pop dentro de la lista
+
+![N|Solid](https://reactrouter.com/_docs/tutorial/08.webp)
+
+
+
+
+
+ 
+
+
+
 
  
 
