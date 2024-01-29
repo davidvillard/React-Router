@@ -632,7 +632,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
  ![N|Solid](https://reactrouter.com/_docs/tutorial/01.webp)
 
-<br><br><br><br><br><br>
+<br><br><br><br>
 
 ## Configurar el Not Found Errors
 <br>
@@ -692,7 +692,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
  ![N|Solid](https://reactrouter.com/_docs/tutorial/03.webp)
  
-<br><br><br><br><br><br>
+<br><br><br><br>
 
 ## Configurar el route de contactos para que no aparezca el 404 error
 <br>
@@ -825,7 +825,7 @@ const router = createBrowserRouter([
 
  ![N|Solid](https://reactrouter.com/_docs/tutorial/04.webp)
  
- <br><br><br><br><br><br>
+ <br><br><br><br>
 
  ## Añadir el componente contactos dentro del diseño Root:
  <br>
@@ -1017,7 +1017,7 @@ export default function Root() {
  
   ![N|Solid](https://reactrouter.com/_docs/tutorial/06.webp)
   
-  <br><br><br><br><br><br>
+  <br><br><br><br>
 
 ## Escritura de Datos y fomrularios HTML
 <br>
@@ -1107,7 +1107,7 @@ const router = createBrowserRouter([
 
 ![N|Solid](https://reactrouter.com/_docs/tutorial/08.webp)
 
-<br><br><br><br><br><br>
+<br><br><br><br>
 
 
 
