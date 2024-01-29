@@ -21,7 +21,7 @@ React Router es una librería para la gestion de rutas en un proyecto React
 ## Pasos
 
 Abrimos nuestra terminal para crear una nueva React App con Vite:
-
+<br><br>
 
 ```bash
 npm create vite@latest nombre-de-tu-proyecto
@@ -29,10 +29,10 @@ cd <nombre de tu directorio del proyecto>
 npm install react-router-dom localforage match-sorter sort-by
 npm run dev
 ```
-
+<br><br>
 Una vez inciada la web, nos la abrira automaticamente en nuestro navegador. Esa sera la web con la que trabajaras con React Router.
 Antes de configurar y enseñarte como funciona React y React Router te dejo unos archivos para que copies y pegues en tu proyecto
-
+<br><br>
 **👉 Copia Pega el archivo CSS en src/index.css**
 
 ```css
