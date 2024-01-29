@@ -33,6 +33,7 @@ npm run dev
 Una vez inciada la web, nos la abrira automaticamente en nuestro navegador. Esa sera la web con la que trabajaras con React Router.
 Antes de configurar y enseñarte como funciona React y React Router te dejo unos archivos para que copies y pegues en tu proyecto
 <br><br>
+
 **👉 Copia Pega el archivo CSS en src/index.css**
 
 ```css
