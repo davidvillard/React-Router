@@ -630,7 +630,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
 - De momento la aplicacion tendria una vista tal que asi:
 
- [![N|Solid](https://reactrouter.com/_docs/tutorial/01.webp)
+ ![N|Solid](https://reactrouter.com/_docs/tutorial/01.webp)
 
 <br><br><br><br><br><br>
 
