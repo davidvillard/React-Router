@@ -35,6 +35,7 @@ Antes de configurar y enseñarte como funciona React y React Router te dejo unos
 <br><br>
 
 **👉 Copia Pega el archivo CSS en src/index.css**
+<br><br>
 
 ```css
 html {
@@ -420,8 +421,10 @@ i {
   width: 100%;
 }
 ```
+<br><br>
 
 **👉 Copia pega el archivo javascript en src/contacts.js**
+<br><br>
 
 ```javascript
 import localforage from "localforage";
@@ -498,19 +501,24 @@ async function fakeNetwork(key) {
   });
 }
 ```
+<br><br>
 
 **👉 Borra los archivos ineccesarios en src/ solo necesitas tener estos:**
+<br><br>
+
 ```cmd
 src
 ├── contacts.js
 ├── index.css
 └── main.jsx
 ```
-
+<br><br>
 
 ## Añadir un Router
+<br><br>
 
 Lo primero es configurar nuestro primer router en main.jsx
+<br><br>
 
 ```jsx
 import * as React from "react";
@@ -534,16 +542,21 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 ```
+<br><br>
 
 Este primer router sera el router root, ya que todos los demas seran renderizados dentro de el.
+<br><br>
 
 ### El router root
+<br><br>
 
 Vamos a añadir la layout global para nuestra app
 
 - Crea en src/routes el archivo root.jsx
 
 - Crea el componente root layout
+
+<br><br>
 
 ```jsx
 export default function Root() {
@@ -590,8 +603,11 @@ export default function Root() {
   );
 }
 ```
+<br><br>
+
 
 Ahora en src/main.jxs declara el elemento root
+<br><br>
 
 ```jsx
 /* existing imports */
@@ -610,14 +626,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 ```
+<br><br>
 
 - De momento la aplicacion tendria una vista tal que asi:
 
  [![N|Solid](https://reactrouter.com/_docs/tutorial/01.webp)
 
-
+<br><br><br><br><br><br>
 
 ## Configurar el Not Found Errors
+<br><br>
 
 Ahora vamos a configurar los errores de nuestra pagina. Estamos hablando de los tipicos errores de 404.
 
@@ -625,6 +643,7 @@ Ahora vamos a configurar los errores de nuestra pagina. Estamos hablando de los 
 Si haceis click en alguno de los "usuarios" de nuestro sidebar veremos el not found error.
 
 - 👉 Por ello crearemos el componente error-page.jsx en src/error.page.jsx
+<br><br>
 
 ```jsx
 import { useRouteError } from "react-router-dom";
@@ -644,8 +663,10 @@ export default function ErrorPage() {
   );
 }
 ```
+<br><br>
 
-Ahora pondremos el <ErrorPage> como 'errorElement' en el roor router, por lo tanto entramos en src/main.jsx
+Ahora pondremos el ErrorPage como 'errorElement' en el root router, por lo tanto entramos en src/main.jsx
+<br><br>
 
 ```jsx
 /* previous imports */
@@ -665,20 +686,23 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 ```
-
+<br><br>
 
 - Ahora veriamos la pagina tal que asi al clickar en un usuario:
 
  ![N|Solid](https://reactrouter.com/_docs/tutorial/03.webp)
  
+<br><br><br><br><br><br>
 
 ## Configurar el route de contactos para que no aparezca el 404 error
+<br><br>
 
 Ahora vamos a hacer los contactos:
 
 👉 Crea el modulo de ruta de contacto llamado contact.jsx en src/routes
 
 Ahora añade el componenete contactos en el archivo creado:
+<br><br>
 
 ```jsx
 import { Form } from "react-router-dom";
@@ -772,8 +796,10 @@ function Favorite({ contact }) {
   );
 }
 ```
+<br><br>
 
 Una vez añadido el componenete, lo importamos y creamos una nueva ruta en main.jsx:
+<br><br>
 
 ```jsx
 /* existing imports */
@@ -793,19 +819,22 @@ const router = createBrowserRouter([
 
 /* existing code */
 ```
-
+<br><br>
 
 - Ahora veriamos la pagina de esta manera:
 
  ![N|Solid](https://reactrouter.com/_docs/tutorial/04.webp)
  
- 
+ <br><br><br><br><br><br>
+
  ## Añadir el componente contactos dentro del diseño Root:
- 
+ <br><br>
+
  Para ellos hacemos que la ruta contacto sea hija de la ruta root.
  
  👉 En main.jsx:
- 
+ <br><br>
+
  ```jsx
 
 const router = createBrowserRouter([
@@ -822,10 +851,12 @@ const router = createBrowserRouter([
   },
 ]);
 ```
+<br><br>
 
 Ahora veriamos en la ruta root una pagina en blanco a la derecha. Por ello necesitamos decirle a la ruta root donde queremos que se represente sus rutas secundarias, y lo haremos con 'Outlet'
 
 Busca el 'div id='detail'' y pon un outlet dentro, en root.jsx
+<br><br>
 
 ```jsx
 import { Outlet } from "react-router-dom";
@@ -841,8 +872,10 @@ export default function Root() {
   );
 }
 ```
+<br><br>
 
 ## Enrutamiento de lado cliente
+<br><br>
 
 Cuando hacemos click en los enlaces de la barra lateral el navegador realiza una solicitud completa del documento en lugar de usar React Router. El enrutamiento de lado cliente permite que se actualice sin solicitar otro documento del servidor.
 
@@ -850,6 +883,8 @@ Esto lo haremos con 'Link'
 
 
 👉 Cambia en la barra lateral 'a href' a 'Link to' en root.jsx
+
+<br><br>
 
 ```jsx
 import { Outlet, Link } from "react-router-dom";
@@ -877,15 +912,18 @@ export default function Root() {
   );
 }
 ```
+<br><br>
 
 ## Cargando datos
+<br><br>
 
  A menudo necesitas cargar datos dependiendo de la URL a la que el usuario acceda. Por ello utilizaremos dos herramientas para facilitar este proceso: loader y useLoaderData.
  
  Estas herramientas ayudan a desacoplar la carga de datos de tus componentes de ruta, facilitando la gestión de datos dinámicos en tu aplicación.
  
  Exporta el loader en root.jsx
- 
+ <br><br>
+
  ```jsx
  import { Outlet, Link } from "react-router-dom";
 import { getContacts } from "../contacts";
@@ -895,9 +933,11 @@ export async function loader() {
   return { contacts };
 }
  ```
- 
- Confifuralo en la ruta en main.jsx
- 
+ <br><br>
+
+ Configuralo en la ruta en main.jsx
+ <br><br>
+
  ```jsx
  /* other imports */
 import Root, { loader as rootLoader } from "./routes/root";
@@ -917,9 +957,11 @@ const router = createBrowserRouter([
   },
 ]);
  ```
- 
+ <br><br>
+
  Accede y renderiza los datos en root.jsx
- 
+ <br><br>
+
  ```jsx
  import {
   Outlet,
@@ -969,25 +1011,31 @@ export default function Root() {
   );
 }
  ```
- 
+ <br><br>
+
  Ahora React Router tendra automaticamente los datos sincronizadps con la interfaz de usuario. Por ahora obtendriamos esto:
  
   ![N|Solid](https://reactrouter.com/_docs/tutorial/06.webp)
   
-  
+  <br><br><br><br><br><br>
+
 ## Escritura de Datos y fomrularios HTML
+<br><br>
 
 React Router simplifica la navegación al emular el comportamiento de los formularios HTML, permitiendo el renderizado del lado del cliente con la simplicidad de los modelos web tradicionales. Los formularios HTML provocan la navegación del navegador, similar a los enlaces, pero con la capacidad adicional de modificar los métodos y cuerpos de las solicitudes. React Router imita este comportamiento, manejando los datos localmente en lugar de enviarlos al servidor. Probar esto con un botón "Nuevo" puede causar problemas si el servidor no está configurado para solicitudes POST.
 
   ![N|Solid](https://reactrouter.com/_docs/tutorial/07.webp)
+<br><br><br><br>
 
 En lugar de enviar un POST al servidor Vite para crear un contacto, usaremos el enrutamiento del lado cliente.
 
-
+<br><br>
 
 ## Crear Contactos
+<br><br>
 
 Crearemos contactos exportando una accion en root y conectandola a la configuracion de la ruta y cambiando 'form' por 'Form' en root.jsx
+<br><br>
 
 ```jsx
 import {
@@ -1024,9 +1072,10 @@ export default function Root() {
   );
 }
 ```
-
+<br><br>
 
 Importa y establece la accion en la ruta en main.jsx
+<br><br>
 
 ```jsx
 /* other imports */
@@ -1052,12 +1101,13 @@ const router = createBrowserRouter([
   },
 ]);
 ```
+<br><br>
 
 - Ahora si hacemos click en añadir nuevo contacto se abrira un nuevo pop dentro de la lista
 
 ![N|Solid](https://reactrouter.com/_docs/tutorial/08.webp)
 
-
+<br><br><br><br><br><br>
 
 
 
