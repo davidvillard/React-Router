@@ -25,7 +25,7 @@ Abrimos nuestra terminal para crear una nueva React App con Vite:
 
 ```bash
 npm create vite@latest 
-<escribe-el-nombre-de-tu-proyecto>
+<escribe el nombre de tu proyecto>
 <selecciona un framework>
 <selecciona una variante>
 cd <nombre de tu directorio del proyecto>
