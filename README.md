@@ -19,7 +19,7 @@ React Router es una librería para la gestion de rutas en un proyecto React
  <br><br><br><br><br><br>
 
 ## Pasos
-
+<br>
 Abrimos nuestra terminal para crear una nueva React App con Vite:
 <br><br>
 
@@ -515,7 +515,7 @@ src
 <br><br>
 
 ## Añadir un Router
-<br><br>
+<br>
 
 Lo primero es configurar nuestro primer router en main.jsx
 <br><br>
@@ -542,13 +542,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 ```
-<br><br>
+<br>
 
 Este primer router sera el router root, ya que todos los demas seran renderizados dentro de el.
 <br><br>
 
-### El router root
-<br><br>
+## El router root
+<br>
 
 Vamos a añadir la layout global para nuestra app
 
@@ -635,7 +635,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 <br><br><br><br><br><br>
 
 ## Configurar el Not Found Errors
-<br><br>
+<br>
 
 Ahora vamos a configurar los errores de nuestra pagina. Estamos hablando de los tipicos errores de 404.
 
@@ -695,7 +695,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 <br><br><br><br><br><br>
 
 ## Configurar el route de contactos para que no aparezca el 404 error
-<br><br>
+<br>
 
 Ahora vamos a hacer los contactos:
 
@@ -828,7 +828,7 @@ const router = createBrowserRouter([
  <br><br><br><br><br><br>
 
  ## Añadir el componente contactos dentro del diseño Root:
- <br><br>
+ <br>
 
  Para ellos hacemos que la ruta contacto sea hija de la ruta root.
  
@@ -875,7 +875,7 @@ export default function Root() {
 <br><br>
 
 ## Enrutamiento de lado cliente
-<br><br>
+<br>
 
 Cuando hacemos click en los enlaces de la barra lateral el navegador realiza una solicitud completa del documento en lugar de usar React Router. El enrutamiento de lado cliente permite que se actualice sin solicitar otro documento del servidor.
 
@@ -915,7 +915,7 @@ export default function Root() {
 <br><br>
 
 ## Cargando datos
-<br><br>
+<br>
 
  A menudo necesitas cargar datos dependiendo de la URL a la que el usuario acceda. Por ello utilizaremos dos herramientas para facilitar este proceso: loader y useLoaderData.
  
@@ -1020,7 +1020,7 @@ export default function Root() {
   <br><br><br><br><br><br>
 
 ## Escritura de Datos y fomrularios HTML
-<br><br>
+<br>
 
 React Router simplifica la navegación al emular el comportamiento de los formularios HTML, permitiendo el renderizado del lado del cliente con la simplicidad de los modelos web tradicionales. Los formularios HTML provocan la navegación del navegador, similar a los enlaces, pero con la capacidad adicional de modificar los métodos y cuerpos de las solicitudes. React Router imita este comportamiento, manejando los datos localmente en lugar de enviarlos al servidor. Probar esto con un botón "Nuevo" puede causar problemas si el servidor no está configurado para solicitudes POST.
 
@@ -1032,7 +1032,7 @@ En lugar de enviar un POST al servidor Vite para crear un contacto, usaremos el 
 <br><br>
 
 ## Crear Contactos
-<br><br>
+<br>
 
 Crearemos contactos exportando una accion en root y conectandola a la configuracion de la ruta y cambiando 'form' por 'Form' en root.jsx
 <br><br>
