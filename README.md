@@ -24,7 +24,10 @@ Abrimos nuestra terminal para crear una nueva React App con Vite:
 <br><br>
 
 ```bash
-npm create vite@latest nombre-de-tu-proyecto
+npm create vite@latest 
+<escribe-el-nombre-de-tu-proyecto>
+<selecciona un framework>
+<selecciona una variante>
 cd <nombre de tu directorio del proyecto>
 npm install react-router-dom localforage match-sorter sort-by
 npm run dev
