@@ -8,12 +8,15 @@
 
 ## Introducción
 ### Antes de nada necesitamos instalar varias herramientas indispensables para trabajar con React Router
+
 - ## Vite 
  [![N|Solid](https://seeklogo.com/images/V/vite-logo-BFD4283991-seeklogo.com.png)](https://vitejs.dev/)
  <br><br><br><br><br><br>
+
 - ## Node.js 
  [![N|Solid](https://cdn.worldvectorlogo.com/logos/nodejs.svg)](https://nodejs.org/en)
  <br><br><br><br><br><br>
+
 - ## Npm 
  [![N|Solid](https://desarrolloweb.com/storage/tag_images/actual/ys4swMGOM7UHXjCLdQLxiIWjasBJYNPs9xHRPy35.png)](https://www.npmjs.com/)
  <br><br><br><br><br><br>
