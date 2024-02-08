@@ -1113,16 +1113,237 @@ const router = createBrowserRouter([
 <br><br><br><br>
 
 
+## Parametros de URL
 
- 
+<br>
+
+Ahor vamos a hacer que el ID del contacto no se uno aleatorio, si no que sea una ID real
+<br><br>
+
+👉 Añadimos loader a la pagina de contacto y el acceso de datos con useLoaderData en contact.jsx:
+
+```jsx
+import { Form, useLoaderData } from "react-router-dom";
+import { getContact } from "../contacts";
+
+export async function loader({ params }) {
+  const contact = await getContact(params.contactId);
+  return { contact };
+}
+
+export default function Contact() {
+  const { contact } = useLoaderData();
+  // existing code
+}
+```
+<br><br>
+
+Configura el loader en main.jsx
+<br><br>
+
+```jsx
+/* existing code */
+import Contact, {
+  loader as contactLoader,
+} from "./routes/contact";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    action: rootAction,
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />,
+        loader: contactLoader,
+      },
+    ],
+  },
+]);
+```
+
+Una vez terminado, la pagina nos quedaria tal que asi:
+<br><br>
+
+![N|Solid](https://reactrouter.com/_docs/tutorial/10.webp)
+<br><br><br><br>
 
 
+## Actualización de Datos
+<br>
+Al igual que al crear datos, puedes actualizar datos con `<Form>`. Vamos a crear una nueva ruta en `contacts/:contactId/edit`. Nuevamente, comenzaremos con el componente y luego lo conectaremos a la configuración de la ruta.
+<br><br>
+👉 Crear el componente de edición
+```cmd
+touch src/routes/edit.jsx
+```
+<br><br>
+👉 Agregar la interfaz de la página de edición
 
+Nada que no hayamos visto antes, siéntete libre de copiar y pegar:
+<br><br>
 
- 
+```jsx
+import { Form, useLoaderData } from "react-router-dom";
 
+export default function EditContact() {
+  const { contact } = useLoaderData();
 
+  return (
+    <Form method="post" id="contact-form">
+      <p>
+        <span>Nombre</span>
+        <input
+          placeholder="Primero"
+          aria-label="Nombre"
+          type="text"
+          name="first"
+          defaultValue={contact.first}
+        />
+        <input
+          placeholder="Apellido"
+          aria-label="Apellido"
+          type="text"
+          name="last"
+          defaultValue={contact.last}
+        />
+      </p>
+      <label>
+        <span>Twitter</span>
+        <input
+          type="text"
+          name="twitter"
+          placeholder="@jack"
+          defaultValue={contact.twitter}
+        />
+      </label>
+      <label>
+        <span>URL del Avatar</span>
+        <input
+          placeholder="https://ejemplo.com/avatar.jpg"
+          aria-label="URL del Avatar"
+          type="text"
+          name="avatar"
+          defaultValue={contact.avatar}
+        />
+      </label>
+      <label>
+        <span>Notas</span>
+        <textarea
+          name="notes"
+          defaultValue={contact.notes}
+          rows={6}
+        />
+      </label>
+      <p>
+        <button type="submit">Guardar</button>
+        <button type="button">Cancelar</button>
+      </p>
+    </Form>
+  );
+}
+```
+<br><br>
+👉 Agregar la nueva ruta de edición
+<br><br>
 
+```jsx
+/* código existente */
+import EditContact from "./routes/edit";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    action: rootAction,
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />,
+        loader: contactLoader,
+      },
+      {
+        path: "contacts/:contactId/edit",
+        element: <EditContact />,
+        loader: contactLoader,
+      },
+    ],
+  },
+]);
 
+/* código existente */
+```
+<br><br>
+Queremos que se renderice en el outlet de la ruta principal, así que lo hicimos un hermano de la ruta secundaria existente.
+<br><br>
+(Apunta que reutilizamos `contactLoader` para esta ruta. Esto se hace solo porque estamos siendo vagos en el tutorial. No hay razón para intentar compartir loaders entre rutas, por lo general, tienen los suyos propios).
+<br><br>
+¡Bien, al hacer clic en el botón "Editar" nos da esta nueva interfaz de usuario!
+<br><br>
+![N|Solid](https://reactrouter.com/_docs/tutorial/11.webp)
+<br><br><br><br>
+## Actualización de Contactos con FormData
+<br>
+La ruta de edición que acabamos de crear ya renderiza un formulario. Todo lo que necesitamos hacer para actualizar el registro es conectar una acción a la ruta. El formulario se enviará a la acción y los datos se volverán a validar automáticamente.
+<br><br>
+👉 Agregar una acción al módulo de edición
 
+```jsx
+import {
+  Form,
+  useLoaderData,
+  redirect,
+} from "react-router-dom";
+import { updateContact } from "../contacts";
+
+export async function action({ request, params }) {
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  await updateContact(params.contactId, updates);
+  return redirect(`/contacts/${params.contactId}`);
+}
+/* código existente */
+```
+<br><br>
+👉 Conectar la acción a la ruta
+
+```jsx
+/* código existente */
+import EditContact, {
+  action as editAction,
+} from "./routes/edit";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    action: rootAction,
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />,
+        loader: contactLoader,
+      },
+      {
+        path: "contacts/:contactId/edit",
+        element: <EditContact />,
+        loader: contactLoader,
+        action: editAction,
+      },
+    ],
+  },
+]);
+
+/* código existente */
+```
+<br><br>
+Completa el formulario, haz clic en guardar, ¡y deberías ver algo como esto!
+<br><br>
+![N|Solid](https://reactrouter.com/_docs/tutorial/12.webp)
