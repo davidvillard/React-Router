@@ -3,7 +3,7 @@
 
 [![N|Solid](https://sahilthakur7blog.files.wordpress.com/2018/08/1_tkvltenqtkp1s-evb5hrvg2x.png)](https://reactrouter.com/en/main)
 <br><br><br><br>
-React Router es una librería para la gestion de rutas en un proyecto React
+- React Router es una librería para la gestion de rutas en un proyecto React
 <br><br><br>
 
 ## Introducción
