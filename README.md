@@ -1177,6 +1177,7 @@ Una vez terminado, la pagina nos quedaria tal que asi:
 Al igual que al crear datos, puedes actualizar datos con `<Form>`. Vamos a crear una nueva ruta en `contacts/:contactId/edit`. Nuevamente, comenzaremos con el componente y luego lo conectaremos a la configuración de la ruta.
 <br><br>
 👉 Crear el componente de edición
+<br><br>
 
 ```cmd
 touch src/routes/edit.jsx
